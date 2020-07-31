@@ -17,6 +17,37 @@ package org.eclipse.leshan.core;
 
 public interface LwM2m {
 
+    /**
+     * Version of LWM2M specification.
+     */
+    public enum Version {
+        V1_0("1.0"), V1_1("1.1");
+
+        private String value;
+
+        Version(String version) {
+            value = version;
+        }
+
+        @Override
+        public String toString() {
+            return value;
+        }
+
+        public static boolean isSupported(String version) {
+            for (Version enumVersion : Version.values()) {
+                if (enumVersion.value.equals(version)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static Version lastSupported() {
+            return V1_1;
+        }
+    }
+
     /** The supported version of the specification */
     static final String VERSION = "1.0";
 
