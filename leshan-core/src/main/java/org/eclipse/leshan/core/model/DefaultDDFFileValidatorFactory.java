@@ -15,20 +15,17 @@
  *******************************************************************************/
 package org.eclipse.leshan.core.model;
 
-import org.w3c.dom.Node;
+import org.eclipse.leshan.core.LwM2m.Version;
 
 /**
- * A DDF File Validator.
+ * Create {@link DefaultDDFFileValidator}.
  * <p>
- * Validate a DDF File against a LWM2M schema.
+ * Support LWM2M version 1.0 and 1.1.
  */
-public interface DDFFileValidator {
 
-    /**
-     * Validate a DOM node (could be DOM Document) against the LWM2M Schema.
-     * 
-     * @param xmlToValidate DOM node to validate
-     * @throws InvalidDDFFileException if ddf file is invalid.
-     */
-    public void validate(Node xmlToValidate) throws InvalidDDFFileException;
+public class DefaultDDFFileValidatorFactory implements DDFFileValidatorFactory {
+    @Override
+    public DDFFileValidator create(Version lwm2mVersion) {
+        return new DefaultDDFFileValidator(lwm2mVersion);
+    }
 }
