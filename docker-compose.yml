@@ -29,12 +29,14 @@ services:
       - "${COAPS_02}:5684/udp"
     depends_on:
       - builder-image
+  # Run and attach this client by `make run-client`.
   leshan-client-demo:
+    stdin_open: true
+    tty: true
     build:
       context: ./leshan-client-demo
       args:
         - BASE_IMAGE
         - TARGET_VERSION
     depends_on:
-      - leshan-server-demo
-      - leshan-bsserver-demo
+      - builder-image

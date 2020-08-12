@@ -55,7 +55,7 @@ ${BUILD_TARGET_03}:
 	mvn package -pl leshan-client-demo -DskipTests
 
 up: build
-	docker-compose -p ${PROJECT_NAME} up -d \
+	docker-compose -p ${PROJECT_NAME} up -d --no-deps \
 	leshan-server-demo leshan-bsserver-demo
 
 logs: up
@@ -72,7 +72,15 @@ clean: down
 
 
 run-client:
-	docker run --rm -it \
-	-h leshan-client-demo \
-	--network ${PROJECT_NAME}_default \
-	${PROJECT_NAME}_leshan-client-demo
+	docker-compose -p ${PROJECT_NAME} up -d --no-deps leshan-client-demo
+	docker attach ${PROJECT_NAME}_leshan-client-demo_1
+
+
+exec-server:
+	docker-compose -p ${PROJECT_NAME} exec leshan-server-demo bash
+
+exec-bsserver:
+	docker-compose -p ${PROJECT_NAME} exec leshan-bsserver-demo bash
+
+exec-client:
+	docker-compose -p ${PROJECT_NAME} exec leshan-client-demo bash
