@@ -12,10 +12,4 @@ RUN dnf -y --disableplugin=subscription-manager install \
     procps-ng \
     zip
 
-ARG CONTAINER_USERNAME
-
-RUN useradd ${CONTAINER_USERNAME}
-USER ${CONTAINER_USERNAME}
-WORKDIR /home/${CONTAINER_USERNAME}
-
-RUN echo 'alias ll="ls -l"' >> .bashrc
+RUN echo 'alias ll="ls -l"' >> ${HOME}/.bashrc

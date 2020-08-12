@@ -3,8 +3,6 @@ services:
   builder-image:
     build:
       context: ./builder-image
-      args:
-        - CONTAINER_USERNAME
   leshan-server-demo:
     build:
       context: ./leshan-server-demo
@@ -17,6 +15,8 @@ services:
       - "${COAPS_01}:5684/udp"
     depends_on:
       - builder-image
+    volumes:
+      - data-volume:/data:z
   leshan-bsserver-demo:
     build:
       context: ./leshan-bsserver-demo
@@ -29,6 +29,8 @@ services:
       - "${COAPS_02}:5684/udp"
     depends_on:
       - builder-image
+    volumes:
+      - data-volume:/data:z
   # Run and attach this client by `make run-client`.
   leshan-client-demo:
     stdin_open: true
@@ -40,3 +42,7 @@ services:
         - TARGET_VERSION
     depends_on:
       - builder-image
+    volumes:
+      - data-volume:/data:z
+volumes:
+  data-volume:
