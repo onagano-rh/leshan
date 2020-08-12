@@ -1,0 +1,40 @@
+version: '3.6'
+services:
+  builder-image:
+    build:
+      context: ./builder-image
+      args:
+        - CONTAINER_USERNAME
+  leshan-server-demo:
+    build:
+      context: ./leshan-server-demo
+      args:
+        - BASE_IMAGE
+        - TARGET_VERSION
+    ports:
+      - "${HTTP_01}:8080"
+      - "${COAP_01}:5683/udp"
+      - "${COAPS_01}:5684/udp"
+    depends_on:
+      - builder-image
+  leshan-bsserver-demo:
+    build:
+      context: ./leshan-bsserver-demo
+      args:
+        - BASE_IMAGE
+        - TARGET_VERSION
+    ports:
+      - "${HTTP_02}:8080"
+      - "${COAP_02}:5683/udp"
+      - "${COAPS_02}:5684/udp"
+    depends_on:
+      - builder-image
+  leshan-client-demo:
+    build:
+      context: ./leshan-client-demo
+      args:
+        - BASE_IMAGE
+        - TARGET_VERSION
+    depends_on:
+      - leshan-server-demo
+      - leshan-bsserver-demo
