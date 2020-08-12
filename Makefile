@@ -58,7 +58,7 @@ up: build
 	docker-compose -p ${PROJECT_NAME} up -d --no-deps \
 	leshan-server-demo leshan-bsserver-demo
 
-logs: up
+logs:
 	docker-compose -p ${PROJECT_NAME} logs -f ${ARGS}
 
 ps:

@@ -13,7 +13,9 @@ ARG TARGET_VERSION
 COPY target/leshan-client-demo-${TARGET_VERSION}-jar-with-dependencies.jar \
      app.jar
 
-CMD ["/usr/lib/jvm/jre/bin/java", "-jar", "app.jar", \
+CMD ["/usr/lib/jvm/jre/bin/java", \
+     "-showversion", "-Xlog:gc::time,level,tags", \
+     "-jar", "app.jar", \
      "-n", "leshan-client-demo", \
      "-lh", "leshan-client-demo", "-lp", "5683", \
      "-b", "-u", "leshan-bsserver-demo:5683" \

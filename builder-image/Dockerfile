@@ -1,8 +1,7 @@
 FROM registry.access.redhat.com/ubi8/ubi:8.2
 
 RUN dnf -y --disableplugin=subscription-manager install \
-    java-11-openjdk-devel \
-    maven
+    java-11-openjdk-devel
 
 RUN dnf -y --disableplugin=subscription-manager install \
     bind-utils \
