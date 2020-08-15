@@ -7,30 +7,30 @@ services:
     build:
       context: ./leshan-server-demo
       args:
-        - BASE_IMAGE
-        - TARGET_VERSION
+        - BASE_IMAGE=${BASE_IMAGE}
+        - TARGET_VERSION=${TARGET_VERSION}
     ports:
       - "${HTTP_01}:8080"
       - "${COAP_01}:5683/udp"
       - "${COAPS_01}:5684/udp"
     depends_on:
       - builder-image
-    volumes:
-      - data-volume:/data:z
+#    volumes:
+#      - data-volume:/data:z
   leshan-bsserver-demo:
     build:
       context: ./leshan-bsserver-demo
       args:
-        - BASE_IMAGE
-        - TARGET_VERSION
+        - BASE_IMAGE=${BASE_IMAGE}
+        - TARGET_VERSION=${TARGET_VERSION}
     ports:
       - "${HTTP_02}:8080"
       - "${COAP_02}:5683/udp"
       - "${COAPS_02}:5684/udp"
     depends_on:
       - builder-image
-    volumes:
-      - data-volume:/data:z
+#    volumes:
+#      - data-volume:/data:z
   # Run and attach this client by `make run-client`.
   leshan-client-demo:
     stdin_open: true
@@ -38,11 +38,11 @@ services:
     build:
       context: ./leshan-client-demo
       args:
-        - BASE_IMAGE
-        - TARGET_VERSION
+        - BASE_IMAGE=${BASE_IMAGE}
+        - TARGET_VERSION=${TARGET_VERSION}
     depends_on:
       - builder-image
-    volumes:
-      - data-volume:/data:z
-volumes:
-  data-volume:
+#    volumes:
+#      - data-volume:/data:z
+#volumes:
+#  data-volume:
