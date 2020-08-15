@@ -43,7 +43,7 @@ test:
 	mvn test -pl leshan-server-demo,leshan-bsserver-demo,leshan-client-demo
 
 build: ${BUILD_TARGET_01} ${BUILD_TARGET_02} ${BUILD_TARGET_03}
-	docker-compose -p ${PROJECT_NAME} build
+	docker-compose build
 
 ${BUILD_TARGET_01}:
 	mvn package -pl leshan-server-demo -DskipTests
@@ -55,32 +55,32 @@ ${BUILD_TARGET_03}:
 	mvn package -pl leshan-client-demo -DskipTests
 
 up: build
-	docker-compose -p ${PROJECT_NAME} up -d --no-deps \
+	docker-compose up -d --no-deps \
 	leshan-server-demo leshan-bsserver-demo
 
 logs:
-	docker-compose -p ${PROJECT_NAME} logs -f ${ARGS}
+	docker-compose logs -f ${ARGS}
 
 ps:
-	docker-compose -p ${PROJECT_NAME} ps
+	docker-compose ps
 
 down:
-	docker-compose -p ${PROJECT_NAME} down
+	docker-compose down
 
 clean: down
 	mvn clean
 
 
 run-client:
-	docker-compose -p ${PROJECT_NAME} up -d --no-deps leshan-client-demo
+	docker-compose up -d --no-deps leshan-client-demo
 	docker attach ${PROJECT_NAME}_leshan-client-demo_1
 
 
 exec-server:
-	docker-compose -p ${PROJECT_NAME} exec leshan-server-demo bash
+	docker-compose exec leshan-server-demo bash
 
 exec-bsserver:
-	docker-compose -p ${PROJECT_NAME} exec leshan-bsserver-demo bash
+	docker-compose exec leshan-bsserver-demo bash
 
 exec-client:
-	docker-compose -p ${PROJECT_NAME} exec leshan-client-demo bash
+	docker-compose exec leshan-client-demo bash
